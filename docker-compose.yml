@@ -7,7 +7,7 @@ services:
     container_name: ope-postgres
     environment:
       POSTGRES_DB: orderdb
-      POSTGRES_USER: ope_user
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ope_pass
     ports:
       - "5432:5432"

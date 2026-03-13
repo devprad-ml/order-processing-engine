@@ -1,11 +1,13 @@
 package com.ope.order_service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service 
 @RequiredArgsConstructor
@@ -33,12 +35,12 @@ public class OrderService {
         log.info("Order created: {}", order.getId());
 
         // Publish event to Kafka
-        OrderEvent event = OrderEvent.builder()
-          .orderId(order.getId())
-          .productId(productId)
-          .quantity(quantity)
-          .status("PENDING")
-          .build();
+        OrderEvent event = new OrderEvent(
+            order.getId(),
+            productId,
+            quantity,
+            "PENDING"
+        );
         kafkaTemplate.send("order.created", event);
         log.info("Published order.created even for order: {}", order.getId());
 
