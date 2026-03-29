@@ -42,14 +42,14 @@ public class OrderService {
             "PENDING"
         );
         kafkaTemplate.send("order.created", event);
-        log.info("Published order.created even for order: {}", order.getId());
+        log.info("Published order.created event for order: {}", order.getId());
 
         return order;
     }
    // now we create an obj which returns the Order class or throws an exception
     public Order getOrder(UUID orderId) {
         return orderRepository.findById(orderId)
-            .orElseThrow(() -> new RuntimeException("Order not found:" + orderId));
+            .orElseThrow(() -> new OrderNotFoundException("Order not found: " + orderId));
 
     }
     // func which updates the order status
