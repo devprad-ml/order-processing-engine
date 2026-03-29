@@ -1,4 +1,4 @@
-package com.ope.order_service;
+package com.ope.inventory_service;
 
 import java.util.UUID;
 
